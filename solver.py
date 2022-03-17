@@ -39,7 +39,7 @@ def pickEmptySquare(board):
 def Print_Board(board):
     for row in range(len(board)):
         if row % 3 == 0:
-            print( "- - - - - - - - - - - - - - - - ")
+            print( "- - - - - - - - - - - - - - - ")
         for sqr in range(len(board[row])):
             if sqr % 3 == 0 and sqr != 0:
                 print("|", end=" ")
@@ -49,21 +49,22 @@ def Print_Board(board):
 
 
 def solve(board):
+    global count
+    count += 1
     assignable = pickEmptySquare(board)
     if not assignable:
-        print("solved!")
+        print("solved!\n",count, " amount of recursions..." )
+        Print_Board(board)
         return True
 
     for i in range(1,10):
         if valid(board,i,assignable):
             board[assignable[0]][assignable[1]] = i
-            Print_Board(board)
-            print("\n\n\nstill solving...\n\n\n\n\n")
-
             if solve(board):
                 return True
             board[assignable[0]][assignable[1]] = 0
 
     return False
+count = 0
 solve(board)
 
