@@ -1,12 +1,12 @@
-board = [[7,8,0,4,0,0,1,2,0],
-         [6,0,0,0,7,5,0,0,9],
-         [0,0,0,6,0,1,0,7,8],
-         [0,0,7,0,4,0,2,6,0],
-         [0,0,1,0,5,0,9,3,0],
-         [9,0,4,0,6,0,0,0,5],
-         [0,7,0,3,0,0,0,1,2],
-         [1,2,0,0,0,7,4,0,0],
-         [0,4,9,2,0,6,0,0,7]]
+board = [[0,0,3,7,0,1,6,0,0],
+         [0,4,0,0,0,0,0,0,5],
+         [0,0,0,0,8,0,0,0,0],
+         [0,0,0,0,9,0,2,0,0],
+         [0,3,0,2,0,8,0,4,0],
+         [0,0,8,0,6,0,0,0,0],
+         [0,0,0,9,0,0,0,0,0],
+         [0,0,1,3,0,2,7,0,0],
+         [7,0,0,0,0,0,0,6,0]]
 
 
 
@@ -34,7 +34,7 @@ def pickEmptySquare(board):
         for col in range(len(board[row])):
             if board[row][col] == 0:
                 return (row,col)
-
+    return False
 
 def Print_Board(board):
     for row in range(len(board)):
@@ -46,10 +46,24 @@ def Print_Board(board):
             print(board[row][sqr]," ",end="")
             if sqr == 8:
                 print()
-Print_Board(board)
+
 
 def solve(board):
-    for
-    pos = pickEmptySquare(board)
-    val = valid(board,3,pos)
+    assignable = pickEmptySquare(board)
+    if not assignable:
+        print("solved!")
+        return True
+
+    for i in range(1,10):
+        if valid(board,i,assignable):
+            board[assignable[0]][assignable[1]] = i
+            Print_Board(board)
+            print("\n\n\nstill solving...\n\n\n\n\n")
+
+            if solve(board):
+                return True
+            board[assignable[0]][assignable[1]] = 0
+
+    return False
 solve(board)
+
